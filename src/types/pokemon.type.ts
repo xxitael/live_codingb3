@@ -30,11 +30,23 @@ export interface IResistance {
 }
 
 export interface ISprites {
-  regular: string | null;
-  shiny: string | null;
-  gmax: string | null;
-  [key: string]: string | null;
-}
+ regular: string;
+  shiny: string;
+
+  // Méga évolutions
+  mega?: {
+    regular: string;
+    shiny: string;
+    name: string;
+  }[];
+  // Formes alternatives
+  alternate?: {
+    regular: string;
+    shiny: string;
+    name: string;
+  }[];
+};
+
 
 export interface IPokemonNames {
   fr?: string;
@@ -45,17 +57,19 @@ export interface IPokemonNames {
 
 export interface IPokemonData {
   pokedex_id: number;
-  generation: number;
-  category: string;
-  name: IPokemonNames;
-  sprites: ISprites;
-  types: IType[];
-  talents: ITalent[];
-  stats: IStats;
-  resistances: IResistance[];
-  evolution: {
-    pre: IEvolutionNode | null;
-    next: IEvolutionNode[];
+  name: { en: string; fr: string };
+  sprites: {
+    regular: string;
+    shiny: string;
+    gmax?: string;
+    mega?: string[];
+    form?: string[];
   };
-  [key: string]: unknown;
+  types: { name: string }[];
+  stats: { hp: number; atk: number; def: number; spe_atk: number; spe_def: number; vit: number };
+  height: number;
+  weight: number;
+  talents: { name: string; tc: boolean }[];
+  generation: number;
 }
+
